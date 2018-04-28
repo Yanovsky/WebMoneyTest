@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.objects;
+package ru.dreamkas.webmoney.objects.tools;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

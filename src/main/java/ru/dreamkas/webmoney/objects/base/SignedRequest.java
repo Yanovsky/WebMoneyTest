@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.objects;
+package ru.dreamkas.webmoney.objects.base;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -54,7 +54,7 @@ public abstract class SignedRequest {
         }
     }
 
-    void resetSign() {
+    protected void resetSign() {
         this.calculatedSign = null;
     }
 

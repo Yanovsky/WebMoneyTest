@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.objects;
+package ru.dreamkas.webmoney.objects.check;
 
 import java.util.ArrayList;
 import java.util.List;

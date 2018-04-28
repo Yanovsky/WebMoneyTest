@@ -1,11 +1,16 @@
 package ru.dreamkas.webmoney.objects.tools;
 
-import java.math.BigDecimal;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import ru.dreamkas.webmoney.objects.check.Invoice;
+public class InvoiceStateAdapter extends XmlAdapter<Integer, InvoiceState> {
 
-public class InvoceTypeAdapter extends XmlAdapter<Integer, Invoice.InvoiceState> {
+    @Override
+    public InvoiceState unmarshal(Integer state) {
+        return InvoiceState.of(state);
+    }
 
+    @Override
+    public Integer marshal(InvoiceState invoiceState) {
+        return invoiceState.getState();
+    }
 }

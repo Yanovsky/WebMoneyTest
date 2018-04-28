@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.objects;
+package ru.dreamkas.webmoney.objects.check;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

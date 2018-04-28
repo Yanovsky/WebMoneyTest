@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.objects;
+package ru.dreamkas.webmoney.objects.refund;
 
 import java.math.BigDecimal;
 
@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import ru.dreamkas.webmoney.objects.check.Order;
 import ru.dreamkas.webmoney.objects.tools.BigDecimalAdapter;
 
 @XmlType(name = "refundorder")

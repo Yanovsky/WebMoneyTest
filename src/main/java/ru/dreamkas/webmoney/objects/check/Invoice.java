@@ -1,12 +1,15 @@
-package ru.dreamkas.webmoney.objects;
+package ru.dreamkas.webmoney.objects.check;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import ru.dreamkas.webmoney.objects.tools.InvoiceState;
+import ru.dreamkas.webmoney.objects.tools.InvoiceStateAdapter;
 
 @XmlType(name = "invoice")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -30,7 +33,8 @@ public class Invoice {
     private String wmId;
 
     @XmlElement(name = "state")
-    private int state;
+    @XmlJavaTypeAdapter(InvoiceStateAdapter.class)
+    private InvoiceState state;
 
     public Long getOrderId() {
         return orderId;
@@ -57,37 +61,7 @@ public class Invoice {
     }
 
     public InvoiceState getState() {
-        return InvoiceState.of(state);
-    }
-
-    public enum InvoiceState {
-        UNPAYED(0, "Счет выставлен, не оплачен"),
-        PAYED(2, "Счет оплачен"),
-        REJECTED(3,"Отказ от оплаты"),
-        TOTAL_REFUND(5,"Полностью возвращен"),
-        CHECK_ABSENT(-1, "Счет не выставлен"),
-        ORDER_DELETED(-2, "Заказ удален"),
-        ORDER_NOT_FOUND(-3,"Заказ не найден");
-
-        private final int state;
-        private final String description;
-
-        InvoiceState(int state, String description) {
-            this.state = state;
-            this.description = description;
-        }
-
-        public static InvoiceState of(int state) {
-            return Arrays.stream(values()).filter(i -> i.state == state).findFirst().orElse(InvoiceState.ORDER_NOT_FOUND);
-        }
-
-        public int getState() {
-            return state;
-        }
-
-        public String getDescription() {
-            return description;
-        }
+        return state;
     }
 
 }

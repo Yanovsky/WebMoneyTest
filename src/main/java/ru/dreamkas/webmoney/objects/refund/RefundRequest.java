@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import ru.dreamkas.webmoney.objects.base.SignedRequest;
 
 @XmlRootElement(name = "w3s.request")
-public class GetRefundRequest extends SignedRequest {
+public class RefundRequest extends SignedRequest {
     @XmlElement(name = "refundorder")
     private RefundOrder order;
 
