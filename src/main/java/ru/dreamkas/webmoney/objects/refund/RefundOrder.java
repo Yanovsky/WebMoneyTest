@@ -6,14 +6,19 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import ru.dreamkas.webmoney.objects.tools.BigDecimalAdapter;
 
 @XmlType(name = "refundorder")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RefundOrder extends Order {
     @XmlElement(name = "posid")
     private String posId;
+
     @XmlElement(name = "amount")
-    private String amount;
+    @XmlJavaTypeAdapter(BigDecimalAdapter.class)
+    private BigDecimal amount;
 
     public String getPosId() {
         return posId;
@@ -24,11 +29,11 @@ public class RefundOrder extends Order {
         return this;
     }
 
-    public String getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public RefundOrder setAmount(String amount) {
+    public RefundOrder setAmount(BigDecimal amount) {
         this.amount = amount;
         return this;
     }

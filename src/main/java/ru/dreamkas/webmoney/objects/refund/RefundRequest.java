@@ -1,7 +1,9 @@
-package ru.dreamkas.webmoney.objects;
+package ru.dreamkas.webmoney.objects.refund;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import ru.dreamkas.webmoney.objects.base.SignedRequest;
 
 @XmlRootElement(name = "w3s.request")
 public class GetRefundRequest extends SignedRequest {
