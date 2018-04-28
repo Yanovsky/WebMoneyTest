@@ -1,90 +1,73 @@
 package ru.dreamkas.webmoney;
 
-import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import ru.dreamkas.webmoney.objects.check.GetOutInvoicesRequest;
-import ru.dreamkas.webmoney.objects.check.Order;
+import ru.dreamkas.webmoney.objects.check.GetOutInvoicesResponse;
+import ru.dreamkas.webmoney.objects.init.CreateSession;
+import ru.dreamkas.webmoney.objects.init.InitRequest;
 import ru.dreamkas.webmoney.objects.refund.RefundOrder;
 import ru.dreamkas.webmoney.objects.refund.RefundRequest;
-import ru.dreamkas.webmoney.tools.BigDecimalAdapter;
-import ru.dreamkas.webmoney.tools.WebMoneyUtils;
+import ru.dreamkas.webmoney.objects.tools.ServiceType;
+import ru.dreamkas.webmoney.objects.tools.WebMoneyUtils;
 
 public class Main {
-
-    private static final String CRC_FORMAT = "p=%s&order_id=%d&s=%s&%s";
-    private static final String QR_CODE_FORMAT = "wmk:pay-at-pos?a=%d&p=%s&order_id=%d&s=%s&c=%d";
-    private static final String SECRET_KEY = "LvELxIkFXvFCVRyGkyZ_YIHdyvuK2A";
     private static final String POS_ID = "N1_WM";
-    private static final Map<Class<?>, Marshaller> marshallers = new ConcurrentHashMap<>();
-
-    private static Marshaller getMarshaller(Class<?> clazz) {
-        return marshallers.computeIfAbsent(clazz, Main::createMarshaller);
-    }
-
-    private static Marshaller createMarshaller(Class<?> c) {
-        try {
-            Marshaller marshaller = JAXBContext.newInstance(c).createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.setProperty(Marshaller.JAXB_ENCODING, "windows-1251");
-            //marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-            return marshaller;
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final String POS_WM_ID = "025656262656";
 
     public static void main(String[] args) throws Exception {
-        Long REQ_NO = 17111511485836L;
-        Long ORDER_ID = 13185900004L;//RandomUtils.nextLong(100, 1000000000);
-        String WM_ID = "025899319006";
+        Long REQ_NO = 17111511485837L;
+        Long ORDER_ID = 13185900005L;//RandomUtils.nextLong(100, 1000000000);
         BigDecimal AMOUNT = BigDecimal.valueOf(0.01);
-        String AMOUNT_STRING = BigDecimalAdapter.format(AMOUNT);
 
-        String qr = String.format(QR_CODE_FORMAT,
-            1,
-            POS_ID,
-            ORDER_ID,
-            AMOUNT_STRING,
-            WebMoneyUtils.calculateCRC(String.format(CRC_FORMAT, POS_ID, ORDER_ID, AMOUNT_STRING, SECRET_KEY).toLowerCase())
-        );
-        System.out.println("QR-Code: " + qr);
+        System.out.println("QR-Code: " + WebMoneyUtils.createQrCode(ServiceType.TEST, POS_ID, ORDER_ID, AMOUNT));
         System.out.println();
+
+        InitRequest initRequest = new InitRequest();
+        initRequest.setReqNumber(REQ_NO);
+        initRequest.setWmId(POS_WM_ID);
+        CreateSession session = new CreateSession();
+        session.setAgentId(1);
+        session.setPosId(POS_ID);
+        session.setOrderId(ORDER_ID);
+        session.setAmount(AMOUNT);
+        //session.setWmId("025899319006");
+
+        initRequest.setCreateSession(session);
+        System.out.println(WebMoneyUtils.marshal(InitRequest.class, initRequest));
 
         GetOutInvoicesRequest request = new GetOutInvoicesRequest();
         request.setReqNumber(REQ_NO);
-        request.setWmId(WM_ID);
+        request.setWmId(POS_WM_ID);
         request.setPosId(POS_ID);
-        request.getOutInvoices().getOutInvoices().addAll(Collections.singletonList(new Order().setOrderId(ORDER_ID)));
+        request.setOrderId(ORDER_ID);
+        System.out.println(WebMoneyUtils.marshal(GetOutInvoicesRequest.class, request));
 
         RefundRequest refund = new RefundRequest();
         refund.setReqNumber(REQ_NO);
-        refund.setWmId(WM_ID);
+        refund.setWmId(POS_WM_ID);
         RefundOrder order = new RefundOrder();
         order.setAmount(AMOUNT);
         order.setPosId(POS_ID);
         order.setOrderId(ORDER_ID);
         refund.setOrder(order);
+        System.out.println(WebMoneyUtils.marshal(RefundRequest.class, refund));
 
-        try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
-            getMarshaller(GetOutInvoicesRequest.class).marshal(request, stream);
-            System.out.println();
-            System.out.println(request.getClass().getSimpleName() + ":");
-            System.out.println(stream.toString());
-
-            stream.reset();
-
-            getMarshaller(RefundRequest.class).marshal(refund, stream);
-            System.out.println();
-            System.out.println(refund.getClass().getSimpleName() + ":");
-            System.out.println(stream.toString());
-        }
+        String responseXML = "<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n" +
+            "<w3s.response>\n" +
+            "    <retval>0</retval>\n" +
+            "    <retdesc>success</retdesc>\n" +
+            "    <reqn>17111511485836</reqn>\n" +
+            "    <invoices>\n" +
+            "        <invoiceid>742248514</invoiceid>\n" +
+            "        <state>3</state>\n" +
+            "        <orderid>13185900005</orderid>\n" +
+            "        <wmid>025899319006</wmid>\n" +
+            "        <internalorderid>143874</internalorderid>\n" +
+            "        <amount>0.01</amount>\n" +
+            "    </invoices>\n" +
+            "</w3s.response>";
+        GetOutInvoicesResponse response = WebMoneyUtils.unmarshal(GetOutInvoicesResponse.class, responseXML);
+        System.out.println(response.toString());
     }
 }

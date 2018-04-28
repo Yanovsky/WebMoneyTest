@@ -1,9 +1,12 @@
 package ru.dreamkas.webmoney.objects.check;
 
+import java.util.Collections;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import ru.dreamkas.webmoney.objects.base.BaseRequest;
+import ru.dreamkas.webmoney.objects.base.Order;
 
 @XmlRootElement(name = "w3s.request")
 public class GetOutInvoicesRequest extends BaseRequest {
@@ -28,5 +31,9 @@ public class GetOutInvoicesRequest extends BaseRequest {
     @Override
     protected String getDataForSign() {
         return getWmId() + posId + getReqNumber();
+    }
+
+    public void setOrderId(Long orderId) {
+        outInvoices.getOutInvoices().addAll(Collections.singletonList(new Order(orderId)));
     }
 }

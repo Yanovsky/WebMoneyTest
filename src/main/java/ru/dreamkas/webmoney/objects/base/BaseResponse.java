@@ -19,24 +19,20 @@ public class BaseResponse {
         return reqNumber;
     }
 
-    public void setReqNumber(long reqNumber) {
-        this.reqNumber = reqNumber;
-    }
-
     public long getResult() {
         return result;
-    }
-
-    public void setResult(long result) {
-        this.result = result;
     }
 
     public String getResultDescription() {
         return resultDescription;
     }
 
-    public void setResultDescription(String resultDescription) {
-        this.resultDescription = resultDescription;
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+            "reqNumber=" + reqNumber +
+            ", result=" + result +
+            ", resultDescription='" + resultDescription + '\'' +
+            '}';
     }
-
 }

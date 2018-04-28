@@ -3,8 +3,8 @@ package ru.dreamkas.webmoney.tools;
 import java.util.Arrays;
 
 public enum InvoiceState {
-    UNPAYED(0, "Счет выставлен, не оплачен"),
-    PAYED(2, "Счет оплачен"),
+    UNPAID(0, "Счет выставлен, не оплачен"),
+    PAID(2, "Счет оплачен"),
     REJECTED(3,"Отказ от оплаты"),
     TOTAL_REFUND(5,"Полностью возвращен"),
     CHECK_ABSENT(-1, "Счет не выставлен"),

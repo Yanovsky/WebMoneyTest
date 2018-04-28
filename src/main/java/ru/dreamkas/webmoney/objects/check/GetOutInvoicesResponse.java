@@ -23,4 +23,13 @@ public class GetOutInvoicesResponse extends BaseResponse {
         return invoices;
     }
 
+    @Override
+    public String toString() {
+        return "GetOutInvoicesResponse{" +
+            "reqNumber=" + getReqNumber() +
+            ", result=" + getResult() +
+            ", resultDescription='" + getResultDescription() + '\'' +
+            ", invoices=" + invoices +
+            '}';
+    }
 }

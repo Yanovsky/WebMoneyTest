@@ -8,26 +8,18 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import ru.dreamkas.webmoney.objects.base.BaseInvoice;
 import ru.dreamkas.webmoney.tools.InvoiceState;
 import ru.dreamkas.webmoney.tools.InvoiceStateAdapter;
 
 @XmlType(name = "invoice")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Invoice {
-    @XmlElement(name = "orderid")
-    private Long orderId;
-
+public class Invoice extends BaseInvoice {
     @XmlElement(name = "amount")
     private BigDecimal amount;
 
     @XmlElement(name = "internalorderid")
-    private Long internalOrderId;
-
-    @XmlElement(name = "invoiceid")
-    private Long invoiceId;
-
-    @XmlElement(name = "altorderid")
-    private Long altOrderId;
+    private long internalOrderId;
 
     @XmlElement(name = "wmid")
     private String wmId;
@@ -36,24 +28,12 @@ public class Invoice {
     @XmlJavaTypeAdapter(InvoiceStateAdapter.class)
     private InvoiceState state;
 
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public Long getInvoiceId() {
-        return invoiceId;
-    }
-
-    public Long getInternalOrderId() {
+    public long getInternalOrderId() {
         return internalOrderId;
     }
 
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public Long getAltOrderId() {
-        return altOrderId;
     }
 
     public String getWmId() {
@@ -64,4 +44,16 @@ public class Invoice {
         return state;
     }
 
+    @Override
+    public String toString() {
+        return "Invoice{" +
+            "orderId=" + getOrderId() +
+            ", amount=" + amount +
+            ", internalOrderId=" + internalOrderId +
+            ", invoiceId=" + getInvoiceId() +
+            ", altOrderId=" + getAltOrderId() +
+            ", wmId='" + wmId + '\'' +
+            ", state=" + state + (state != null ? "(" + state.getDescription()+")" : "") +
+            '}';
+    }
 }
