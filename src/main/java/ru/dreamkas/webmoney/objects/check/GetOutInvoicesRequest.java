@@ -3,10 +3,10 @@ package ru.dreamkas.webmoney.objects.check;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import ru.dreamkas.webmoney.objects.base.SignedRequest;
+import ru.dreamkas.webmoney.objects.base.BaseRequest;
 
 @XmlRootElement(name = "w3s.request")
-public class GetOutInvoicesRequest extends SignedRequest {
+public class GetOutInvoicesRequest extends BaseRequest {
     @XmlElement(name = "posid")
     private String posId;
     @XmlElement(name = "outinvoices")

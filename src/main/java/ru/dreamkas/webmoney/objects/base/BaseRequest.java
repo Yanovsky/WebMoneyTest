@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import ru.dreamkas.webmoney.WebMoneyUtils;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class SignedRequest {
+public abstract class BaseRequest {
     private static final Path CERTIFICATE_FILE_PATH = Paths.get("D:", "DOC", "WebMoney", "TRMTESTCERT.pfx");
     private static final String CERTIFICATE_PASSWORD = "1488";
 

@@ -3,10 +3,10 @@ package ru.dreamkas.webmoney.objects.refund;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import ru.dreamkas.webmoney.objects.base.SignedRequest;
+import ru.dreamkas.webmoney.objects.base.BaseRequest;
 
 @XmlRootElement(name = "w3s.request")
-public class RefundRequest extends SignedRequest {
+public class RefundRequest extends BaseRequest {
     @XmlElement(name = "refundorder")
     private RefundOrder order;
 
