@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.objects.tools;
+package ru.dreamkas.webmoney.tools;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

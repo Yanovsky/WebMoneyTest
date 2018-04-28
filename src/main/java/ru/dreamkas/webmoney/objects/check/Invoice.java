@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import ru.dreamkas.webmoney.objects.tools.InvoiceState;
-import ru.dreamkas.webmoney.objects.tools.InvoiceStateAdapter;
+import ru.dreamkas.webmoney.tools.InvoiceState;
+import ru.dreamkas.webmoney.tools.InvoiceStateAdapter;
 
 @XmlType(name = "invoice")
 @XmlAccessorType(XmlAccessType.FIELD)

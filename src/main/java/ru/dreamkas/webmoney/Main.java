@@ -14,7 +14,8 @@ import ru.dreamkas.webmoney.objects.check.GetOutInvoicesRequest;
 import ru.dreamkas.webmoney.objects.check.Order;
 import ru.dreamkas.webmoney.objects.refund.RefundOrder;
 import ru.dreamkas.webmoney.objects.refund.RefundRequest;
-import ru.dreamkas.webmoney.objects.tools.BigDecimalAdapter;
+import ru.dreamkas.webmoney.tools.BigDecimalAdapter;
+import ru.dreamkas.webmoney.tools.WebMoneyUtils;
 
 public class Main {
 

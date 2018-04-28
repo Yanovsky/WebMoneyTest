@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import ru.dreamkas.webmoney.objects.check.Order;
-import ru.dreamkas.webmoney.objects.tools.BigDecimalAdapter;
+import ru.dreamkas.webmoney.tools.BigDecimalAdapter;
 
 @XmlType(name = "refundorder")
 @XmlAccessorType(XmlAccessType.FIELD)

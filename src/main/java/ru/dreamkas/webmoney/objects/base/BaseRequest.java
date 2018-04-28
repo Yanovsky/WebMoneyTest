@@ -1,18 +1,13 @@
 package ru.dreamkas.webmoney.objects.base;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import ru.dreamkas.webmoney.WebMoneyUtils;
+import ru.dreamkas.webmoney.tools.WebMoneyUtils;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseRequest {
-    private static final Path CERTIFICATE_FILE_PATH = Paths.get("D:", "DOC", "WebMoney", "TRMTESTCERT.pfx");
-    private static final String CERTIFICATE_PASSWORD = "1488";
 
     @XmlElement(name = "reqn")
     private long reqNumber;
@@ -45,7 +40,7 @@ public abstract class BaseRequest {
     public String getSign() {
         try {
             if (calculatedSign == null) {
-                calculatedSign = WebMoneyUtils.calculateSignature(getDataForSign(), CERTIFICATE_FILE_PATH, CERTIFICATE_PASSWORD);
+                calculatedSign = WebMoneyUtils.calculateSignature(getDataForSign());
             }
             return calculatedSign;
         } catch (Exception e) {

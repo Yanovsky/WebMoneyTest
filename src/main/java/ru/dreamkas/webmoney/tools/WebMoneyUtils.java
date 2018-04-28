@@ -1,8 +1,9 @@
-package ru.dreamkas.webmoney;
+package ru.dreamkas.webmoney.tools;
 
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,26 +15,24 @@ import java.util.Enumeration;
 import java.util.stream.Collectors;
 
 public class WebMoneyUtils {
+    private static final Path CERTIFICATE_FILE_PATH = Paths.get("D:", "DOC", "WebMoney", "TRMTESTCERT.pfx");
+    private static final String CERTIFICATE_PASSWORD = "1488";
 
     /**
      * Создает подпись по алгоритму RSA. В качестве хеша используется SHA1
      *
-     * @param text
+     * @param value
      *     Данные, которые надо подписать
-     * @param certFilePath
-     *     Путь к файлу с сертификатом типа .PFX
-     * @param certPassword
-     *     Пароль к файлу с сертификатом
      * @return Сформированная подпись
      */
-    public static String calculateSignature(String text, Path certFilePath, String certPassword) throws Exception {
-        System.out.println("Try to sign String: " + text);
+    public static String calculateSignature(String value) throws Exception {
+        System.out.println("Try to sign String: " + value);
         KeyStore ks = KeyStore.getInstance("PKCS12");
-        ks.load(new FileInputStream(certFilePath.toFile()), certPassword.toCharArray());
+        ks.load(new FileInputStream(CERTIFICATE_FILE_PATH.toFile()), CERTIFICATE_PASSWORD.toCharArray());
         Enumeration<String> aliases = ks.aliases();
         String alias = aliases.nextElement();
         X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
-        System.out.println("Certificate: " + certFilePath.toString() + "\n" +
+        System.out.println("Certificate: " + CERTIFICATE_FILE_PATH.toString() + "\n" +
             "X500Principal: " + cert.getIssuerX500Principal().getName() + "\n" +
             "Type: " + cert.getType() + "\n" +
             "Version: " + cert.getVersion() + "\n" +
@@ -45,10 +44,10 @@ public class WebMoneyUtils {
             "SigAlgOID: " + cert.getSigAlgOID() + "\n" +
             "SigAlgName: " + cert.getSigAlgName() + "\n" +
             "SerialNumber: " + cert.getSerialNumber());
-        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, certPassword.toCharArray());
+        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, CERTIFICATE_PASSWORD.toCharArray());
         Signature dsa = Signature.getInstance("SHA1withRSA");
         dsa.initSign(privateKey);
-        dsa.update(text.getBytes());
+        dsa.update(value.getBytes());
         String result = Base64.getEncoder().encodeToString(dsa.sign());
         System.out.println("Sign is: " + result);
         return result;
