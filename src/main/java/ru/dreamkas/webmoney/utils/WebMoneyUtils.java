@@ -66,6 +66,16 @@ public class WebMoneyUtils {
         return Base64.getEncoder().encodeToString(dsa.sign());
     }
 
+    /**
+     * Расчитывает контрольную сумму
+     *
+     * @param posId
+     *     Идентификатор кассы
+     * @param orderId
+     *     Идентификатор заказа в кассовой системе
+     * @param amount
+     *     Сумма заказа
+     */
     public static int calculateCRC(String posId, long orderId, String amount) throws NoSuchAlgorithmException {
         return calculateCRC(String.format(CRC_FORMAT, posId, orderId, amount, SECRET_KEY));
     }
