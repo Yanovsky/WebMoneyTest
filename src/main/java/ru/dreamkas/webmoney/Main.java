@@ -10,6 +10,7 @@ import ru.dreamkas.webmoney.objects.init.InitResponse;
 import ru.dreamkas.webmoney.objects.refund.RefundOrder;
 import ru.dreamkas.webmoney.objects.refund.RefundRequest;
 import ru.dreamkas.webmoney.objects.base.ServiceType;
+import ru.dreamkas.webmoney.utils.JAXBUtils;
 import ru.dreamkas.webmoney.utils.WebMoneyUtils;
 
 public class Main {
@@ -35,14 +36,14 @@ public class Main {
         //session.setWmId("025899319006");
 
         initRequest.setCreateSession(session);
-        System.out.println(WebMoneyUtils.marshal(InitRequest.class, initRequest));
+        System.out.println(JAXBUtils.marshal(initRequest));
 
         GetOutInvoicesRequest request = new GetOutInvoicesRequest();
         request.setReqNumber(REQ_NO);
         request.setWmId(POS_WM_ID);
         request.setPosId(POS_ID);
         request.setOrderId(ORDER_ID);
-        System.out.println(WebMoneyUtils.marshal(GetOutInvoicesRequest.class, request));
+        System.out.println(JAXBUtils.marshal(request));
 
         RefundRequest refund = new RefundRequest();
         refund.setReqNumber(REQ_NO);
@@ -52,7 +53,7 @@ public class Main {
         order.setPosId(POS_ID);
         order.setOrderId(ORDER_ID);
         refund.setOrder(order);
-        System.out.println(WebMoneyUtils.marshal(RefundRequest.class, refund));
+        System.out.println(JAXBUtils.marshal(refund));
 
         String responseXML = "<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n" +
             "<w3s.response>\n" +
@@ -68,7 +69,7 @@ public class Main {
             "        <amount>0.01</amount>\n" +
             "    </invoices>\n" +
             "</w3s.response>";
-        System.out.println(WebMoneyUtils.unmarshal(GetOutInvoicesResponse.class, responseXML).toString());
+        System.out.println(JAXBUtils.unmarshal(GetOutInvoicesResponse.class, responseXML).toString());
 
         responseXML = "<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n" +
             "<w3s.response>\n" +
@@ -82,6 +83,6 @@ public class Main {
             "    </invoice>\n" +
             "</w3s.response>";
 
-        System.out.println(WebMoneyUtils.unmarshal(InitResponse.class, responseXML).toString());
+        System.out.println(JAXBUtils.unmarshal(InitResponse.class, responseXML).toString());
     }
 }
