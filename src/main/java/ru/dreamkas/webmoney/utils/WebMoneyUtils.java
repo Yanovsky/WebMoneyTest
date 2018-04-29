@@ -23,6 +23,18 @@ public class WebMoneyUtils {
     private static final String CRC_FORMAT = "p=%s&order_id=%d&s=%s&%s";
     private static final String QR_CODE_FORMAT = "wmk:pay-at-pos?a=%d&p=%s&order_id=%d&s=%s&c=%d";
 
+    /**
+     * Создает QR-код для покупателя
+     *
+     * @param type
+     *     Идентификатор сервиса (константа) 1 – тестовый, 5 - боевой
+     * @param posId
+     *     Идентификатор кассы
+     * @param orderId
+     *     Идентификатор заказа в кассовой системе
+     * @param amount
+     *     Сумма заказа
+     */
     public static String createQrCode(ServiceType type, String posId, long orderId, BigDecimal amount) throws NoSuchAlgorithmException {
         String amountString = BigDecimalAdapter.format(amount);
         return String.format(QR_CODE_FORMAT,
