@@ -6,10 +6,11 @@ import ru.dreamkas.webmoney.objects.check.GetOutInvoicesRequest;
 import ru.dreamkas.webmoney.objects.check.GetOutInvoicesResponse;
 import ru.dreamkas.webmoney.objects.init.CreateSession;
 import ru.dreamkas.webmoney.objects.init.InitRequest;
+import ru.dreamkas.webmoney.objects.init.InitResponse;
 import ru.dreamkas.webmoney.objects.refund.RefundOrder;
 import ru.dreamkas.webmoney.objects.refund.RefundRequest;
-import ru.dreamkas.webmoney.objects.tools.ServiceType;
-import ru.dreamkas.webmoney.objects.tools.WebMoneyUtils;
+import ru.dreamkas.webmoney.objects.base.ServiceType;
+import ru.dreamkas.webmoney.utils.WebMoneyUtils;
 
 public class Main {
     private static final String POS_ID = "N1_WM";
@@ -67,7 +68,20 @@ public class Main {
             "        <amount>0.01</amount>\n" +
             "    </invoices>\n" +
             "</w3s.response>";
-        GetOutInvoicesResponse response = WebMoneyUtils.unmarshal(GetOutInvoicesResponse.class, responseXML);
-        System.out.println(response.toString());
+        System.out.println(WebMoneyUtils.unmarshal(GetOutInvoicesResponse.class, responseXML).toString());
+
+        responseXML = "<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n" +
+            "<w3s.response>\n" +
+            "    <retval>0</retval>\n" +
+            "    <retdesc>success</retdesc>\n" +
+            "    <reqn>17111511485837</reqn>\n" +
+            "    <invoice>\n" +
+            "        <orderid>143874</orderid>\n" +
+            "        <invoiceid>742248514</invoiceid>\n" +
+            "        <altorderid>0</altorderid>\n" +
+            "    </invoice>\n" +
+            "</w3s.response>";
+
+        System.out.println(WebMoneyUtils.unmarshal(InitResponse.class, responseXML).toString());
     }
 }

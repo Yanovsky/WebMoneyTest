@@ -10,13 +10,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import ru.dreamkas.webmoney.objects.base.BaseResponse;
 
-@XmlRootElement(name = "w3c.response")
+@XmlRootElement(name = "w3s.response")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GetOutInvoicesResponse extends BaseResponse {
     @XmlElement(name = "invoices")
-    private List<Invoice> invoices;
+    private List<OutInvoice> invoices;
 
-    public List<Invoice> getInvoices() {
+    public List<OutInvoice> getInvoices() {
         if (invoices == null) {
             invoices = new ArrayList<>();
         }

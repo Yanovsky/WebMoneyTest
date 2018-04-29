@@ -3,9 +3,11 @@ package ru.dreamkas.webmoney.objects.base;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType(name = "invoice")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BaseInvoice {
+public class Invoice {
     @XmlElement(name = "orderid")
     private long orderId;
 
@@ -27,5 +29,12 @@ public class BaseInvoice {
         return altOrderId;
     }
 
-
+    @Override
+    public String toString() {
+        return "Invoice{" +
+            "orderId=" + orderId +
+            ", invoiceId=" + invoiceId +
+            ", altOrderId=" + altOrderId +
+            '}';
+    }
 }

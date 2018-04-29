@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.tools;
+package ru.dreamkas.webmoney.objects.base;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.objects.tools;
+package ru.dreamkas.webmoney.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -26,7 +26,8 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import ru.dreamkas.webmoney.tools.BigDecimalAdapter;
+import ru.dreamkas.webmoney.objects.adapters.BigDecimalAdapter;
+import ru.dreamkas.webmoney.objects.base.ServiceType;
 
 public class WebMoneyUtils {
     private static final Path CERTIFICATE_FILE_PATH = Paths.get("D:", "DOC", "WebMoney", "TRMTESTCERT.pfx");
@@ -91,18 +92,14 @@ public class WebMoneyUtils {
         );
     }
 
-    public static int calculateCRC(String posId, long orderId, String amount) throws NoSuchAlgorithmException {
-        return calculateCRC(String.format(CRC_FORMAT, posId, orderId, amount, SECRET_KEY));
-    }
-
     /**
      * Создает подпись по алгоритму RSA. В качестве хеша используется SHA1
      *
-     * @param text
+     * @param value
      *     Данные, которые надо подписать
      * @return Сформированная подпись
      */
-    public static String calculateSignature(String text) throws Exception {
+    public static String calculateSignature(String value) throws Exception {
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(CERTIFICATE_FILE_PATH.toFile()), CERTIFICATE_PASSWORD.toCharArray());
         Enumeration<String> aliases = ks.aliases();
@@ -111,8 +108,12 @@ public class WebMoneyUtils {
         PrivateKey privateKey = (PrivateKey) ks.getKey(alias, CERTIFICATE_PASSWORD.toCharArray());
         Signature dsa = Signature.getInstance("SHA1withRSA");
         dsa.initSign(privateKey);
-        dsa.update(text.getBytes());
+        dsa.update(value.getBytes());
         return Base64.getEncoder().encodeToString(dsa.sign());
+    }
+
+    public static int calculateCRC(String posId, long orderId, String amount) throws NoSuchAlgorithmException {
+        return calculateCRC(String.format(CRC_FORMAT, posId, orderId, amount, SECRET_KEY));
     }
 
     private static int calculateCRC(String value) throws NoSuchAlgorithmException {

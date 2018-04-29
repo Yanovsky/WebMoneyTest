@@ -27,12 +27,4 @@ public class BaseResponse {
         return resultDescription;
     }
 
-    @Override
-    public String toString() {
-        return "BaseResponse{" +
-            "reqNumber=" + reqNumber +
-            ", result=" + result +
-            ", resultDescription='" + resultDescription + '\'' +
-            '}';
-    }
 }

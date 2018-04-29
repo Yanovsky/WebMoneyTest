@@ -5,16 +5,14 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import ru.dreamkas.webmoney.objects.base.BaseInvoice;
-import ru.dreamkas.webmoney.tools.InvoiceState;
-import ru.dreamkas.webmoney.tools.InvoiceStateAdapter;
+import ru.dreamkas.webmoney.objects.adapters.InvoiceStateAdapter;
+import ru.dreamkas.webmoney.objects.base.Invoice;
+import ru.dreamkas.webmoney.objects.base.InvoiceState;
 
-@XmlType(name = "invoice")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Invoice extends BaseInvoice {
+public class OutInvoice extends Invoice {
     @XmlElement(name = "amount")
     private BigDecimal amount;
 
@@ -46,7 +44,7 @@ public class Invoice extends BaseInvoice {
 
     @Override
     public String toString() {
-        return "Invoice{" +
+        return "OutInvoice{" +
             "orderId=" + getOrderId() +
             ", amount=" + amount +
             ", internalOrderId=" + internalOrderId +

@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import ru.dreamkas.webmoney.objects.base.Order;
-import ru.dreamkas.webmoney.objects.tools.WebMoneyUtils;
-import ru.dreamkas.webmoney.tools.BigDecimalAdapter;
+import ru.dreamkas.webmoney.utils.WebMoneyUtils;
+import ru.dreamkas.webmoney.objects.adapters.BigDecimalAdapter;
 
 @XmlType(name = "createsession")
 @XmlAccessorType(XmlAccessType.FIELD)

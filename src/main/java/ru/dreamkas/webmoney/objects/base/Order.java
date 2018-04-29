@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import ru.dreamkas.webmoney.tools.BigDecimalAdapter;
+import ru.dreamkas.webmoney.objects.adapters.BigDecimalAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Order {

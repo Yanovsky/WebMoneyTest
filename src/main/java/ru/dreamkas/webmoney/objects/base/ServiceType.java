@@ -1,4 +1,4 @@
-package ru.dreamkas.webmoney.objects.tools;
+package ru.dreamkas.webmoney.objects.base;
 
 public enum ServiceType {
     TEST(1),
