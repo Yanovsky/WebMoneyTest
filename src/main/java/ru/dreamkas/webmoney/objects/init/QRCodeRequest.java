@@ -1,56 +1,47 @@
-package ru.dreamkas.webmoney.objects.base;
+package ru.dreamkas.webmoney.objects.init;
 
 import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import ru.dreamkas.webmoney.objects.adapters.BigDecimalAdapter;
 
+@XmlType(name = "getqr")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Order {
-    @XmlElement(name = "orderid", required = true)
-    private long orderId;
-
-    @XmlElement(name = "posid")
-    private String posId;
+public class QRCodeRequest {
+    @XmlElement(name = "currency")
+    private final String currency = "RUB";
 
     @XmlElement(name = "amount")
     @XmlJavaTypeAdapter(BigDecimalAdapter.class)
     private BigDecimal amount;
 
-    public Order() {
-    }
+    @XmlElement(name = "posid")
+    private String posId;
 
-    public Order(long orderId) {
-        this.orderId = orderId;
-    }
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public Order setOrderId(long orderId) {
-        this.orderId = orderId;
-        return this;
+    public String getCurrency() {
+        return currency;
     }
 
     public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public QRCodeRequest setAmount(BigDecimal amount) {
         this.amount = amount;
+        return this;
     }
 
     public String getPosId() {
         return posId;
     }
 
-    public void setPosId(String posId) {
+    public QRCodeRequest setPosId(String posId) {
         this.posId = posId;
+        return this;
     }
-
 }

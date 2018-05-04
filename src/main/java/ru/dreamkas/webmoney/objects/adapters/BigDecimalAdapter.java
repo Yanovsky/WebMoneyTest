@@ -26,7 +26,7 @@ public class BigDecimalAdapter extends XmlAdapter<String, BigDecimal> {
     }
 
     @Override
-    public String marshal(BigDecimal value) throws Exception {
+    public String marshal(BigDecimal value) {
         return format(value);
     }
 

@@ -13,7 +13,6 @@ import ru.dreamkas.webmoney.objects.adapters.BigDecimalAdapter;
 
 @XmlType(name = "createsession")
 @XmlAccessorType(XmlAccessType.FIELD)
-
 public class CreateSession extends Order {
     @XmlElement(name = "agent_id")
     private int agentId = 1;
